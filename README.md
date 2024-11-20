@@ -1,4 +1,4 @@
-#Instalacion de requerimientos
+#Instalación de requerimientos
 
 ###Para que funcione debes instalar los recursos
 #####Entra en el terminal de visual y copia este codigo para habilitar el entorno
