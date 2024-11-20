@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguridad Informática</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        {% if not operation %}
+            <!-- Pantalla inicial de selección -->
+            <h1>Seleccione una operación</h1>
+            <ul>
+                <li><a href="/?operation=malware">Malware o Scripts</a></li>
+                <!-- Puedes agregar más opciones aquí -->
+            </ul>
+        {% elif operation == 'malware' %}
+            <!-- Pantalla de análisis de malware -->
+            <h1>Analizar Archivo para Malware o Scripts</h1>
+            <form action="/?operation=malware" method="post" enctype="multipart/form-data">
+                <div id="drop-area" class="drop-area">
+                    <p>Arrastra y suelta tu archivo aquí o haz clic para seleccionarlo</p>
+                    <input id="file-input" type="file" name="file" accept=".txt,.pdf,.docx">
+                </div>
+                <button type="submit">Analizar</button>
+            </form>
+
+            <!-- Mostrar resultados del análisis -->
+            {% if analysis_result %}
+                <div class="result">
+                    <h2>Resultado del Análisis:</h2>
+                    <p>{{ analysis_result }}</p>
+                </div>
+            {% endif %}
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+        {% endif %}
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
+
+
