@@ -1,7 +1,5 @@
 /* static/styles.css */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,19 +8,42 @@ body {
     height: 100vh;
 }
 
-.container {
-    text-align: center;
-    padding: 20px;
-    border: 2px solid #333;
-    border-radius: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    color: #333;
+.titulo{
+    color: #4335A7;
+    font-family: "Work Sans", serif;
+    font-size: 100px;
 }
 
 p {
-    color: #666;
+    font-family: "Quicksand", serif;
+    color: #D4EBF8;
 }
+
+
+.container {
+    padding-top: 150px;
+    text-align: center;
+    background-color: #000B58;
+    width: 100%;
+}
+
+a{
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+    gap: 30px;
+}
+
+ul{
+    gap: 30px;
+}
+
+.opciones{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
