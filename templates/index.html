@@ -6,52 +6,69 @@
     <title>Seguridad Informática</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="container">
-        {% if not operation %}
-            <!-- Pantalla inicial de selección -->
-            <h1 class="titulo">SafeScan</h1>
-            <p>Una aplicación web avanzada que examina archivos para detectar malware y otras amenazas de seguridad. <br>Ofrece un análisis rápido, preciso y confiable para proteger tus datos.</p>
-            <h1>Seleccione una operación</h1>
-            <ul class="opciones">
-                <li><a href="/?operation=malware">Malware</a></li>
-                <li><a href="/?operation=malware">Scripts</a></li>
-                <!-- Puedes agregar más opciones aquí -->
-            </ul>
-        {% elif operation == 'malware' %}
-            <!-- Pantalla de análisis de malware -->
-            <form action="/?operation=malware" method="post" enctype="multipart/form-data">
-                <div id="drop-area" class="drop-area">
-                    <p>Arrastra y suelta tu archivo aquí o haz clic para seleccionarlo</p>
-                    <input id="file-input" type="file" name="file" accept=".txt,.pdf,.docx">
-                </div>
-                <button type="submit">Analizar</button>
-            </form>
-
-            <!-- Mostrar resultados del análisis -->
-            {% if analysis_result %}
-                <div class="result">
-                    <h2>Resultado del Análisis:</h2>
-                    <p>{{ analysis_result }}</p>
-                </div>
-            {% endif %}
-
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
+    <nav class="barra-navegacion">
+        <ul class="nav-list">
+            <li><a href=""><img src="/Segudoc/bloquear.png" alt="candado-logo"></a></li>
+            <li><a href="">SafeScan</a></li>
+            <li><a href="">Inicio</a></li>
+            <li><a href="">¿Cómo Funciona?</a></li>
+            <li><a href="">Beneficios</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1 class="titulo1">Mantén tus archivos <br>seguros en segundos</h1>
+        <h3 class="descripcion1">Un escáner confiable y rápido que detecta amenazas antes de <br> que sea demasiado tarde.</h3>
+        <div class="container">
+            {% if not operation %}
+                <!-- Pantalla inicial de selección -->
+                <h2 class="titulo2">SELECCIONA UNA OPERACIÓN</h2>
+                <ul class="opciones">
+                    <li><a href="/?operation=malware">Malware</a></li>
+                    <li><a href="/?operation=scripts">Scripts</a></li>
+                    <!-- Puedes agregar más opciones aquí -->
                 </ul>
+            {% elif operation == 'malware' %}
+                <!-- Pantalla de análisis de malware -->
+                <form action="/?operation=malware" method="post" enctype="multipart/form-data">
+                    <div id="drop-area" class="drop-area">
+                        <h2 class="titulo3">EMPEZAR ANÁLISIS AHORA</h2>
+                        <div class="imagen2"></div>
+                        <!--<label for="file-input" id="custom-button">Seleccionar Archivo</label>-->
+                        <input id="file-input" type="file" name="file" accept=".txt,.pdf,.docx">
+                        <button type="submit" id="analizar-button">ANALIZAR</button>
+                    </div>
+                </form>
+        
+                <!-- Mostrar resultados del análisis -->
+                {% if analysis_result %}
+                    <div class="result">
+                        <h2>Resultado del Análisis:</h2>
+                        <p>{{ analysis_result }}</p>
+                    </div>
+                {% endif %}
+        
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
             {% endif %}
-            {% endwith %}
-        {% endif %}
-    </div>
+        </div>
+           
+    </main>
+    
     <script src="/static/script.js"></script>
+    <script src="/static/script2.js"></script>
 </body>
 </html>
+
 
 

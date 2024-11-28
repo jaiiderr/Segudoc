@@ -6,25 +6,17 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    font-family: "Roboto", sans-serif;
+    background-color: #FFFFFF;
 }
 
-.titulo{
-    color: #4335A7;
-    font-family: "Work Sans", serif;
-    font-size: 100px;
-}
-
-p {
-    font-family: "Quicksand", serif;
-    color: #D4EBF8;
-}
-
-
-.container {
-    padding-top: 150px;
-    text-align: center;
-    background-color: #000B58;
+.barra-navegacion {
+    position: fixed;
+    top: 0;
     width: 100%;
+    background-color: #FFFFFF;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 a{
@@ -40,10 +32,158 @@ ul{
     gap: 30px;
 }
 
+.nav-list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 10px;
+}
+
+.nav-list li:nth-child(2) a {
+    color: #10147C;
+}
+
+.nav-list li:nth-child(3) a,
+.nav-list li:nth-child(4) a,
+.nav-list li:nth-child(5) a {
+    color: #74768F;
+}
+
+.nav-list li a:hover{
+    color: #10147C;
+}
+
+.nav-list li:nth-child(3) { /* Selecciona el tercer elemento (Inicio) */
+    margin-left: auto;
+}
+
+.nav-list li a{
+    font-weight: bold;
+}
+
+.nav-list li {
+    margin: 0 15px;
+}
+
+.nav-list a {
+    text-decoration: none;
+    font-size: 18px;
+}
+
+
+main{
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    place-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.titulo1{
+    margin-top: 130px;
+    text-align: center;
+    font-size: 40px;
+    color: #10147C;
+    font-weight: bold;
+    width: 400px;
+}
+
+.descripcion1{
+    text-align: center;
+    font-weight:normal;
+    font-size: 15px;
+    margin: 0;
+}
+
+
+.titulo2{
+    text-align: center;
+    font-weight: bold;
+    color: #10147C;
+}
+
+
 .opciones{
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
 }
 
+.opciones li{
+    border: 2px solid #10147C; /* Borde del cuadro */
+    border-radius: 8px;        /* Esquinas redondeadas */
+    background-color: #FFFFFF; /* Fondo del cuadro */
+    width: 90px;               /* Ancho fijo */
+    height: 90px;              /* Alto fijo */
+    display: flex;             /* Flexbox dentro del cuadro */
+    align-items: flex-end;     /* Texto alineado al final */
+    justify-content: center;   /* Centrar horizontalmente el contenido */
+    padding: 0;                /* Elimina el padding interno */
+    box-sizing: border-box;    /* Incluye borde y padding en el tamaño total */
+    text-align: center;        /* Centra el texto si es multilinea */
+    font-size: 14px;           /* Ajusta el tamaño de la fuente si es necesario */
+}
+
+.opciones a{
+    color: black;
+    font-weight: bold;
+}
+
+.opciones li:hover{
+    border-color: #2488FF;     /* Cambia el color del borde al pasar el mouse */
+}
+
+.drop-area{
+    margin-top: 18px;
+    text-align: center;
+    border: 5px solid #10147C;
+    border-radius: 30px;
+    padding: 5px;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+    gap: 8px;
+    place-items: center;
+    background-color: #EEFBFF;
+    width: 500px;
+    height: 220px;
+    padding: 10px;
+}
+
+.titulo3{
+    text-align: center;
+    font-weight: bold;
+    color: #10147C;
+    margin: 0;
+}
+
+#custom-button{
+    color: #2488FF;
+}
+
+.imagen2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #10147C;
+    width: 15px;
+    height: 15px;
+}
+
+#file-input{
+    color: #10147C;
+}
+
+#analizar-button{
+    width: 150px;
+    height: 30px;
+    border-radius: 30px;
+    border: 0;
+    background-color: #10147C;
+    color: #FFFFFF;
+}
