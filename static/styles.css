@@ -28,16 +28,34 @@ li{
     gap: 30px;
 }
 
-ul{
-    gap: 30px;
-}
 
 .nav-list {
     display: flex;
     justify-content: center;
     list-style: none;
     padding: 10px;
+    margin: 0;
 }
+
+.logo1{
+    display: inline-flex; /* Asegura que se comporte como un elemento en línea con el contenido */
+    align-items: center; /* Alinea el contenido del SVG */
+}
+
+.logo1 svg {
+    display: block; /* Elimina el espacio extra debajo del SVG */
+    width: 31px; /* Ajusta según el tamaño necesario */
+    height: 31px;  
+}
+
+.nav-list ul{
+    gap: 0;
+}
+
+.nav-list li:nth-child(1){
+    margin-right: 0;
+}
+
 
 .nav-list li:nth-child(2) a {
     color: #10147C;
@@ -63,12 +81,18 @@ ul{
 
 .nav-list li {
     margin: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
 }
 
 .nav-list a {
     text-decoration: none;
     font-size: 18px;
+    text-align: center;
 }
+
 
 
 main{
@@ -114,6 +138,7 @@ main{
     padding: 0;
 }
 
+
 .opciones li{
     border: 2px solid #10147C; /* Borde del cuadro */
     border-radius: 8px;        /* Esquinas redondeadas */
@@ -126,8 +151,9 @@ main{
     padding: 0;                /* Elimina el padding interno */
     box-sizing: border-box;    /* Incluye borde y padding en el tamaño total */
     text-align: center;        /* Centra el texto si es multilinea */
-    font-size: 14px;           /* Ajusta el tamaño de la fuente si es necesario */
+    font-size: 14px;            /* Ajusta el tamaño de la fuente si es necesario */ 
 }
+       
 
 .opciones a{
     color: black;
@@ -187,3 +213,4 @@ main{
     background-color: #10147C;
     color: #FFFFFF;
 }
+
