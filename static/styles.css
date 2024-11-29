@@ -106,6 +106,15 @@ main{
     width: 100%;
 }
 
+.container h1{
+    display: flex;
+    justify-content: center;
+}
+
+#analizar{
+    display: none;
+}
+
 .titulo1{
     margin-top: 130px;
     text-align: center;
@@ -164,6 +173,46 @@ main{
     border-color: #2488FF;     /* Cambia el color del borde al pasar el mouse */
 }
 
+input[type = "file"]{
+    display: none;
+
+}
+
+.boton{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+label{width: 40%;
+    display: inline-block;
+    text-transform: uppercase;
+    color: whitesmoke;
+    background-color: #10147C;
+    text-align: center;
+    padding: 7px 5px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 5px 15px 25px rgba(0, 0, 0, 0.35);
+    border-radius: 5px;
+}
+
+.anali{
+    width: 20%;
+    margin: 15px;
+}
+
+label i{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+label:active {
+    transform: scale(0.9);
+}
+
 .drop-area{
     margin-top: 18px;
     text-align: center;
@@ -175,10 +224,14 @@ main{
     grid-template-columns: 1fr;
     gap: 8px;
     place-items: center;
-    background-color: #EEFBFF;
+    background-color: #ffffff;
     width: 500px;
     height: 220px;
     padding: 10px;
+}
+
+#document{
+    width: 20%;
 }
 
 .titulo3{
