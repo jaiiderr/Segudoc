@@ -1,74 +1,88 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, flash
 import os
 import re
+from PyPDF2 import PdfReader
 from werkzeug.utils import secure_filename
+from datetime import datetime
 
 app = Flask(__name__)
 
-# Configuración para la subida de archivos
 UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'your_secret_key'
 
-# Asegurarse de que la carpeta de subida exista
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
-# Función para comprobar si un archivo tiene una extensión permitida
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# Función para analizar el contenido del archivo
+def format_date(date_str):
+    try:
+        date = datetime.strptime(date_str[:14], "D:%Y%m%d%H%M%S")
+        return date.strftime("%d de %B de %Y, %I:%M:%S %p")
+    except Exception:
+        return date_str
+
 def analyze_file(file_path):
     suspicious_patterns = [
-        r'\bexec\b',       # Uso de exec
-        r'\bimport os\b',  # Importación del módulo os
-        r'\bsystem\b',     # Llamadas al sistema
-        r'\bsubprocess\b', # Uso del módulo subprocess
-        r'<script>',       # Presencia de scripts en HTML
+        r'\bexec\b', r'\bimport os\b', r'\bsystem\b', r'\bsubprocess\b', r'<script>',
     ]
     try:
         with open(file_path, 'r', errors='ignore') as file:
             content = file.read()
             for pattern in suspicious_patterns:
                 if re.search(pattern, content):
-                    return f"Suspicious content found: {pattern}"
-        return "No suspicious content detected"
+                    return f"Contenido sospechoso encontrado: {pattern}"
+        return "No se detectó contenido sospechoso"
     except Exception as e:
-        return f"Error analyzing file: {e}"
+        return f"Error al analizar el archivo: {e}"
+
+def extract_pdf_metadata(file_path):
+    try:
+        reader = PdfReader(file_path)
+        metadata = reader.metadata
+        formatted_metadata = {}
+        for key, value in metadata.items():
+            if key in ['/CreationDate', '/ModDate'] and value:
+                formatted_metadata[key.replace('/', '')] = format_date(value)
+            else:
+                formatted_metadata[key.replace('/', '')] = value
+        return formatted_metadata
+    except Exception as e:
+        return {"Error": f"No se pudieron extraer metadatos: {e}"}
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    operation = request.args.get('operation', '')  # Lee el parámetro de operación desde la URL
-    analysis_result = None  # Variable para almacenar el resultado del análisis
+    analysis_result = None
+    pdf_metadata = None
 
     if request.method == 'POST':
-        if operation == 'malware':  # Analizar archivos
-            if 'file' not in request.files:
-                flash('No file part')
-                return redirect(request.url)
-            file = request.files['file']
-            if file.filename == '':
-                flash('No selected file')
-                return redirect(request.url)
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                file.save(file_path)
+        if 'file' not in request.files:
+            flash('No se encontró el archivo')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash('No seleccionaste un archivo')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
 
-                # Llamar a la función de análisis
+            if filename.lower().endswith('.pdf'):
+                pdf_metadata = extract_pdf_metadata(file_path)
+                analysis_result = analyze_file(file_path)  # También analizamos el contenido del PDF
+            else:
                 analysis_result = analyze_file(file_path)
 
-                # Mostrar el resultado
-                flash(analysis_result)
-                os.remove(file_path)  # Limpia el archivo después de analizarlo
-                return render_template('index.html', operation=operation, analysis_result=analysis_result)
-            else:
-                flash('File type not allowed')
-                return redirect(request.url)
+            os.remove(file_path)  # Limpia el archivo después de analizarlo
+        else:
+            flash('Tipo de archivo no permitido')
+            return redirect(request.url)
 
-    return render_template('index.html', operation=operation, analysis_result=analysis_result)
+    return render_template('index.html', analysis_result=analysis_result, pdf_metadata=pdf_metadata)
 
 if __name__ == '__main__':
     app.run(debug=True)
