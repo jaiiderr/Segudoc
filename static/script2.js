@@ -1,4 +1,4 @@
-
+/*bloque para que se mantenga estatica la barra*/
 document.querySelectorAll('.nav-list a').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -28,3 +28,5 @@ function handleFileSelect() {
         analyzeButton.style.display = 'inline-block';
     }
 }
+
+/*funcion para aparecer titulo del resultado*/
