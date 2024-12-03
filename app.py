@@ -33,11 +33,13 @@ def analyze_file(file_path):
         with open(file_path, 'r', errors='ignore') as file:
             content = file.read()
             for pattern in suspicious_patterns:
-                if re.search(pattern, content):
-                    return f"Contenido sospechoso encontrado: {pattern}"
-        return "No se detectó contenido sospechoso"
+                match = re.search(pattern, content)
+                if match:
+                    return f"Contenido sospechoso encontrado: '{match.group(0)}' coincide con el patrón '{pattern}'"
+        return "No se detectó contenido sospechoso."
     except Exception as e:
         return f"Error al analizar el archivo: {e}"
+
 
 def extract_pdf_metadata(file_path):
     try:

@@ -171,11 +171,12 @@ input[type = "file"]{
     border: 5px solid #10147C;
     border-radius: 30px;
     width: 420px;
-    height: 300px;
+    height: 265px;
     padding: 16px;
     background-color: #F7FDFF;
+    margin-top: 15px;
     box-shadow: 5px 15px 25px rgba(0, 0, 0, 0.35);
-    display: none;
+    
 }
 
 
@@ -219,6 +220,7 @@ label{
     width: 20%;
     margin: 15px;
 }
+
 
 .respuesta h2{
     color: #10147C;
